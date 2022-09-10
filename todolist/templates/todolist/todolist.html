@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+      <div class="row container d-flex justify-content-center">
+          <div class="col-md-12">
+              <div class="card px-3">
+                  <div class="card-body">
+                      <h1 class="card-title ">ToDo list</h1>
+                      <form method="POST" action="create/">
+                      {% csrf_token %}
+                      <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" name="task" placeholder="What do you need to do today?"> <button type="submit" class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
+                      </form>
+                      <div class="list-wrapper">
+                          <ul class="d-flex flex-column-reverse todo-list">
+                              <form method="POST">
+                              {% csrf_token %}
+                              {% for text in unfinished %}
+                              <li class="position-relative">
+                                  <div class="form-check"> <label class="form-check-label"> <input class="checkbox" name="checkbox" type="checkbox" value="{{text.task}}"><i style="margin-right: 10px;">&#9633;</i>{{text.task}}</label> </div> <a href="{% url 'check' text.id %}" class="position-absolute top-30 remove check mdi-close-circle-outline" style="left: 95%;"></a> <a href="{% url 'delete-task' text.id %}" class="remove mdi mdi-close-circle-outline"></a>
+                              </li>
+                              {% endfor %}
+                              {% for text in finished %}
+                              <li class="completed position-relative">
+                                  <div class="form-check"> <label class="form-check-label"> <input class="checkbox" name="checkbox" checked type="checkbox" value="{{text.task}}"><i style="margin-right: 10px;">&#9632;</i>{{text.task}}</label> </div> <a href="{% url 'uncheck' text.id %}" class="position-absolute top-30 remove return mdi-close-circle-outline" style="left: 95%;"></a> <a href="{% url 'delete-task' text.id %}" class="remove mdi mdi-close-circle-outline"></a>
+                              </li>
+                              {% endfor %}
+                              </form>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+{% endblock content %}

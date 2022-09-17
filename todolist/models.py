@@ -12,4 +12,4 @@ class ToDo(models.Model):
         return self.task
 
     class Meta:
-        ordering = ["created"]
+        ordering = ["-created"]

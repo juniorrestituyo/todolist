@@ -1,0 +1,9 @@
+.section-color{
+    background: rgb(111,56,197);
+    background: linear-gradient(90deg, rgba(111,56,197,1) 0%, rgba(135,162,251,1) 50%, rgba(173,221,208,1) 100%);
+}
+
+.remove-btn{
+    color: #405189; 
+    text-decoration: none;
+}

@@ -26,17 +26,17 @@
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                   <div class="d-flex align-items-center">
-                  <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />{{text.task}}</div>
-                  <a href="{% url 'delete-task' text.id %}" data-mdb-toggle="tooltip" title="Remove item" class="remove-btn">&#10006;</a>
+                  <input class="form-check-input me-2 todo-list" type="checkbox" data-id="{{text.id}}"/>{{text.task}}</div>
+                  <a href="{% url 'delete-task' text.id %}" class="remove-btn">&#10006;</a>
                 </li>
                 {% endfor %}
                 {% for text in finished %}
                 <li
                   class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                   <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked /><s>{{text.task}}</s>
+                    <input class="form-check-input me-2 todo-list" type="checkbox" data-id="{{text.id}}" checked /><s>{{text.task}}</s>
                   </div>
-                  <a href="#!" data-mdb-toggle="tooltip" title="Remove item" class="remove-btn">&#10006;</a>
+                  <a href="{% url 'delete-task' text.id %}" data-mdb-toggle="tooltip" class="remove-btn">&#10006;</a>
                 </li>
                 {% endfor %}
               </ul>

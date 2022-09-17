@@ -2,7 +2,6 @@
 {% load static %}
 {% block content %}
 
-
 <section class="vh-100 section-color">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -12,40 +11,34 @@
             <div class="card-body p-5">
   
               <h3 class="mb-3">TODO List</h3>
-  
-              <form class="d-flex justify-content-center align-items-center mb-4">
-    
+
+              <form action="create/" method="POST" class="d-flex justify-content-center align-items-center mb-4">
+                {% csrf_token %}
                 <div class="form-outline flex-fill">
-                  <input type="text" id="form3" class="form-control form-control-lg" placeholder="What do you need to do today?" />
+                  <input type="text" name="task" id="form3" class="form-control form-control-lg" placeholder="What do you need to do today?" />
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-lg ms-2">Add</button>
-
               </form>
   
               <ul class="list-group mb-0">
-
+                {% for text in unfinished %}
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                   <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
-                    Cras justo odio
-                  </div>
-                  <a href="#!" data-mdb-toggle="tooltip" title="Remove item">
-                    <i class="fas fa-times text-primary"></i>
-                  </a>
+                  <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />{{text.task}}</div>
+                  <a href="{% url 'delete-task' text.id %}" data-mdb-toggle="tooltip" title="Remove item" class="remove-btn">&#10006;</a>
                 </li>
-
-
+                {% endfor %}
+                {% for text in finished %}
                 <li
                   class="list-group-item d-flex d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
                   <div class="d-flex align-items-center">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
-                    <s>Dapibus ac facilisis in</s>
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked /><s>{{text.task}}</s>
                   </div>
                   <a href="#!" data-mdb-toggle="tooltip" title="Remove item" class="remove-btn">&#10006;</a>
                 </li>
-
+                {% endfor %}
               </ul>
   
             </div>
@@ -55,42 +48,5 @@
       </div>
     </div>
   </section>
-
-
-<!-- <div class="page-content page-container" id="page-content">
-  <div class="padding">
-      <div class="row container d-flex justify-content-center">
-          <div class="col-md-12">
-              <div class="card px-3">
-                  <div class="card-body">
-                      <h1 class="card-title ">ToDo list</h1>
-                      <form method="POST" action="create/">
-                      {% csrf_token %}
-                      <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" name="task" placeholder="What do you need to do today?"> <button type="submit" class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
-                      </form>
-                      <div class="list-wrapper">
-                          <ul class="d-flex flex-column-reverse todo-list">
-                              <form method="POST">
-                              {% csrf_token %}
-                              {% for text in unfinished %}
-                              <li class="position-relative">
-                                  <div class="form-check"> <label class="form-check-label"> <input class="checkbox" name="checkbox" type="checkbox" value="{{text.task}}"><i style="margin-right: 10px;">&#9633;</i>{{text.task}}</label> </div> <a href="{% url 'check' text.id %}" class="position-absolute top-30 remove check mdi-close-circle-outline" style="left: 95%;"></a> <a href="{% url 'delete-task' text.id %}" class="remove mdi mdi-close-circle-outline"></a>
-                              </li>
-                              {% endfor %}
-                              {% for text in finished %}
-                              <li class="completed position-relative">
-                                  <div class="form-check"> <label class="form-check-label"> <input class="checkbox" name="checkbox" checked type="checkbox" value="{{text.task}}"><i style="margin-right: 10px;">&#9632;</i>{{text.task}}</label> </div> <a href="{% url 'uncheck' text.id %}" class="position-absolute top-30 remove return mdi-close-circle-outline" style="left: 95%;"></a> <a href="{% url 'delete-task' text.id %}" class="remove mdi mdi-close-circle-outline"></a>
-                              </li>
-                              {% endfor %}
-                              </form>
-                          </ul>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-</div> -->
-
 
 {% endblock content %}
